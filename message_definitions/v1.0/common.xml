@@ -3951,6 +3951,91 @@
       <field type="uint8_t" name="position_valid">Boolean indicating known position (1) or default unkown position (0), for validation of positioning of the landing target</field>
     </message>
     <!-- MESSAGE IDs 180 - 229: Space for custom messages in individual projectname_messages.xml files -->
+    <message id="198" name="ODAR_INFO">
+      <description> ODAR Status Info </description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="float" name="gain_scale"> </field>
+
+      <field type="char" name="fuse_flag"> </field>
+      <field type="char" name="feedback_flag"> </field>
+
+      <field type="float" name="k_p"> </field>
+      <field type="float" name="k_d"> </field>
+      <field type="float" name="k_i"> </field>
+      <field type="float" name="k_r"> </field>
+      <field type="float" name="k_w"> </field>
+      <field type="float" name="k_ri"> </field>
+    </message>
+
+    <message id="223" name="ODAR_POSE">
+      <description> ODAR Channel Command</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>     
+      <field type="float" name="x"> </field>
+      <field type="float" name="y"> </field>
+      <field type="float" name="z"> </field>
+      <field type="float" name="vx"> </field>
+      <field type="float" name="vy"> </field>
+      <field type="float" name="vz"> </field>
+
+      <field type="float" name="qw"> </field>
+      <field type="float" name="qx"> </field>
+      <field type="float" name="qy"> </field>
+      <field type="float" name="qz"> </field>
+      <field type="float" name="wx"> </field>
+      <field type="float" name="wy"> </field>
+      <field type="float" name="wz"> </field>
+    </message>
+
+    <message id="224" name="ODAR_CHANNEL_COMMAND">
+      <description> ODAR Channel Command</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="uint32_t" name="channel"> </field>
+      <field type="float" name="float_value"> </field>
+      <field type="int32_t" name="int_value"> </field>
+    </message>
+
+    <message id="225" name="ODAR_DESIRED_POSE">
+      <description> ODAR Desired Pose</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="float" name="x"> </field>
+      <field type="float" name="y"> </field>
+      <field type="float" name="z"> </field>
+      <field type="float" name="qw"> </field>
+      <field type="float" name="qx"> </field>
+      <field type="float" name="qy"> </field>
+      <field type="float" name="qz"> </field>
+    </message>
+
+	
+    <message id="227" name="ODAR_PWM">
+      <description> ODAR Wrench</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="uint16_t" name="pwm1"> </field>
+      <field type="uint16_t" name="pwm2"> </field>
+      <field type="uint16_t" name="pwm3"> </field>
+      <field type="uint16_t" name="pwm4"> </field>
+      <field type="uint16_t" name="pwm5"> </field>
+      <field type="uint16_t" name="pwm6"> </field>
+      <field type="uint16_t" name="pwm7"> </field>
+      <field type="uint16_t" name="pwm8"> </field>
+    </message>
+
+    <message id="228" name="ODAR_WRENCH">
+      <description> ODAR Wrench</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="float" name="Fx"> Fx </field>
+      <field type="float" name="Fy"> Fy </field>
+      <field type="float" name="Fz"> Fz </field>
+      <field type="float" name="Tx"> Tx </field>
+      <field type="float" name="Ty"> Ty </field>
+      <field type="float" name="Tz"> Tz </field>
+    </message>
+
+    <message id="229" name="KEY_COMMAND">
+	  <description> mavlink message creating test </description>
+	  <field type="int32_t" name="command"> </field>
+    </message>
+
     <message id="230" name="ESTIMATOR_STATUS">
       <description>Estimator status message including flags, innovation test ratios and estimated accuracies. The flags message is an integer bitmask containing information on which EKF outputs are valid. See the ESTIMATOR_STATUS_FLAGS enum definition for further information. The innovaton test ratios show the magnitude of the sensor innovation divided by the innovation check threshold. Under normal operation the innovaton test ratios should be below 0.5 with occasional values up to 1.0. Values greater than 1.0 should be rare under normal operation and indicate that a measurement has been rejected by the filter. The user should be notified if an innovation test ratio greater than 1.0 is recorded. Notifications for values in the range between 0.5 and 1.0 should be optional and controllable by the user.</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
