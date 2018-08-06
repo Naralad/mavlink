@@ -4006,6 +4006,18 @@
       <field type="float" name="qz"> </field>
     </message>
 
+    <message id="236" name="ODAR_FUSED_POSE">
+      <description> ODAR Fused Pose</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="float" name="x"> </field>
+      <field type="float" name="y"> </field>
+      <field type="float" name="z"> </field>
+      <field type="float" name="qw"> </field>
+      <field type="float" name="qx"> </field>
+      <field type="float" name="qy"> </field>
+      <field type="float" name="qz"> </field>
+    </message>
+
 	
     <message id="227" name="ODAR_PWM">
       <description> ODAR Wrench</description>
