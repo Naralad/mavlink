@@ -3951,13 +3951,13 @@
       <field type="uint8_t" name="position_valid">Boolean indicating known position (1) or default unkown position (0), for validation of positioning of the landing target</field>
     </message>
     <!-- MESSAGE IDs 180 - 229: Space for custom messages in individual projectname_messages.xml files -->
-    <message id="198" name="ODAR_INFO">
+    <message id="238" name="ODAR_INFO">
       <description> ODAR Status Info </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="float" name="gain_scale"> </field>
 
-      <field type="char" name="fuse_flag"> </field>
-      <field type="char" name="feedback_flag"> </field>
+      <field type="uint8_t" name="fuse_flag"> </field>
+      <field type="uint8_t" name="feedback_flag"> </field>
 
       <field type="float" name="k_p"> </field>
       <field type="float" name="k_d"> </field>
