@@ -4060,7 +4060,13 @@
       <field type="float" name="tas_ratio" units="Hz">True airspeed innovation test ratio</field>
       <field type="float" name="pos_horiz_accuracy" units="m">Horizontal position 1-STD accuracy relative to the EKF local origin (m)</field>
       <field type="float" name="pos_vert_accuracy" units="m">Vertical position 1-STD accuracy relative to the EKF local origin (m)</field>
-      <field type="float[7]" name="covariances" >Estimator covariances</field>
+      <field type="float" name="cov_qw" >Estimator covariances qw</field>
+      <field type="float" name="cov_qx" >Estimator covariances qx</field>
+      <field type="float" name="cov_qy" >Estimator covariances qy</field>
+      <field type="float" name="cov_qz" >Estimator covariances qz</field>
+      <field type="float" name="cov_px" >Estimator covariances px</field>
+      <field type="float" name="cov_py" >Estimator covariances py</field>
+      <field type="float" name="cov_pz" >Estimator covariances pz</field>
     </message>
     <message id="231" name="WIND_COV">
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
