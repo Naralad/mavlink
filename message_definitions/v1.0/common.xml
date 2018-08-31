@@ -4018,6 +4018,17 @@
       <field type="float" name="qz"> </field>
     </message>
 
+    <message id="237" name="ODAR_FUSED_VEL">
+      <description> ODAR Fused Pose</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="float" name="vx"> </field>
+      <field type="float" name="vy"> </field>
+      <field type="float" name="vz"> </field>
+      <field type="float" name="wx"> </field>
+      <field type="float" name="wy"> </field>
+      <field type="float" name="wz"> </field>
+    </message>
+
 	
     <message id="227" name="ODAR_PWM">
       <description> ODAR Wrench</description>
