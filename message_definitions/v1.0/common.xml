@@ -4009,25 +4009,16 @@
     <message id="235" name="ODAR_SCKF">
       <description> ODAR SCKF </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
-      <field type="uint16_t" name="link_idx"> </field>
-      <field type="float" name="con_err_x"> </field>
-      <field type="float" name="con_err_y"> </field>
-      <field type="float" name="con_err_z"> </field>
-      <field type="float" name="con_err_vx"> </field>
-      <field type="float" name="con_err_vy"> </field>
-      <field type="float" name="con_err_vz"> </field>
-      <field type="float" name="err_cov1_x"> </field>
-      <field type="float" name="err_cov1_y"> </field>
-      <field type="float" name="err_cov1_z"> </field>
-      <field type="float" name="err_cov1_vx"> </field>
-      <field type="float" name="err_cov1_vy"> </field>
-      <field type="float" name="err_cov1_vz"> </field>
-      <field type="float" name="err_cov2_x"> </field>
-      <field type="float" name="err_cov2_y"> </field>
-      <field type="float" name="err_cov2_z"> </field>
-      <field type="float" name="err_cov2_vx"> </field>
-      <field type="float" name="err_cov2_vy"> </field>
-      <field type="float" name="err_cov2_vz"> </field>
+      <field type="float" name="qw"> </field>
+      <field type="float" name="qx"> </field>
+      <field type="float" name="qy"> </field>
+      <field type="float" name="qz"> </field>
+      <field type="float" name="vx"> </field>
+      <field type="float" name="vy"> </field>
+      <field type="float" name="vz"> </field>
+      <field type="float" name="x"> </field>
+      <field type="float" name="y"> </field>
+      <field type="float" name="z"> </field>     
     </message>
 
     <message id="236" name="ODAR_FUSED_POSE">
