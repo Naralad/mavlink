@@ -3968,7 +3968,7 @@
     </message>
 
     <message id="223" name="ODAR_POSE">
-      <description> ODAR Channel Command</description>
+      <description> ODAR Pose </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>     
       <field type="float" name="x"> </field>
       <field type="float" name="y"> </field>
@@ -3987,7 +3987,7 @@
     </message>
 
     <message id="224" name="ODAR_CHANNEL_COMMAND">
-      <description> ODAR Channel Command</description>
+      <description> ODAR Channel Command </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="uint32_t" name="channel"> </field>
       <field type="float" name="float_value"> </field>
@@ -3995,7 +3995,7 @@
     </message>
 
     <message id="225" name="ODAR_DESIRED_POSE">
-      <description> ODAR Desired Pose</description>
+      <description> ODAR Desired Pose </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="float" name="x"> </field>
       <field type="float" name="y"> </field>
@@ -4006,8 +4006,23 @@
       <field type="float" name="qz"> </field>
     </message>
 
+    <message id="235" name="ODAR_SCKF">
+      <description> ODAR SCKF </description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="float" name="qw"> </field>
+      <field type="float" name="qx"> </field>
+      <field type="float" name="qy"> </field>
+      <field type="float" name="qz"> </field>
+      <field type="float" name="vx"> </field>
+      <field type="float" name="vy"> </field>
+      <field type="float" name="vz"> </field>
+      <field type="float" name="x"> </field>
+      <field type="float" name="y"> </field>
+      <field type="float" name="z"> </field>     
+    </message>
+
     <message id="236" name="ODAR_FUSED_POSE">
-      <description> ODAR Fused Pose</description>
+      <description> ODAR Fused Pose </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="float" name="x"> </field>
       <field type="float" name="y"> </field>
@@ -4019,7 +4034,7 @@
     </message>
 
     <message id="237" name="ODAR_FUSED_VEL">
-      <description> ODAR Fused Pose</description>
+      <description> ODAR Fused Vel </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="float" name="vx"> </field>
       <field type="float" name="vy"> </field>
@@ -4031,7 +4046,7 @@
 
 	
     <message id="227" name="ODAR_PWM">
-      <description> ODAR Wrench</description>
+      <description> ODAR PWM </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="uint16_t" name="pwm1"> </field>
       <field type="uint16_t" name="pwm2"> </field>
@@ -4044,7 +4059,7 @@
     </message>
 
     <message id="228" name="ODAR_WRENCH">
-      <description> ODAR Wrench</description>
+      <description> ODAR Wrench </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="float" name="Fx"> Fx </field>
       <field type="float" name="Fy"> Fy </field>
@@ -4062,14 +4077,15 @@
     <message id="239" name="ESTIMATOR_STATUS">
       <description>Estimator status message including flags, innovation test ratios and estimated accuracies. The flags message is an integer bitmask containing information on which EKF outputs are valid. See the ESTIMATOR_STATUS_FLAGS enum definition for further information. The innovaton test ratios show the magnitude of the sensor innovation divided by the innovation check threshold. Under normal operation the innovaton test ratios should be below 0.5 with occasional values up to 1.0. Values greater than 1.0 should be rare under normal operation and indicate that a measurement has been rejected by the filter. The user should be notified if an innovation test ratio greater than 1.0 is recorded. Notifications for values in the range between 0.5 and 1.0 should be optional and controllable by the user.</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
-      <field type="float" name="cov_px" >Estimator covariances px</field>
-      <field type="float" name="cov_py" >Estimator covariances py</field>
-      <field type="float" name="cov_pz" >Estimator covariances pz</field>
-      <field type="float" name="cov_qw" >Estimator covariances qw</field>
-      <field type="float" name="cov_qx" >Estimator covariances qx</field>
-      <field type="float" name="cov_qy" >Estimator covariances qy</field>
-      <field type="float" name="cov_qz" >Estimator covariances qz</field>
+      <field type="float[10]" name="state" >Estimator state</field>
     </message>
+
+    <message id="240" name="ESTIMATOR_COVARIANCE">
+      <description>Estimator covariance</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
+      <field type="float[45]" name="cov" >Estimator covariance upper triangle</field>
+    </message>
+    
     <message id="231" name="WIND_COV">
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="float" name="wind_x" units="m/s">Wind in X (NED) direction in m/s</field>
