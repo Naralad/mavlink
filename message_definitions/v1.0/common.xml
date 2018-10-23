@@ -4006,6 +4006,18 @@
       <field type="float" name="qz"> </field>
     </message>
 
+    <message id="236" name="ODAR_DESIRED_VEL">
+      <description> ODAR Desired Vel</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>     
+      <field type="float" name="vx"> </field>
+      <field type="float" name="vy"> </field>
+      <field type="float" name="vz"> </field>
+      <field type="float" name="ax"> </field>
+      <field type="float" name="ay"> </field>
+      <field type="float" name="az"> </field>
+    </message>
+
+
 	
     <message id="227" name="ODAR_PWM">
       <description> ODAR Wrench</description>
