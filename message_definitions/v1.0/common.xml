@@ -3955,6 +3955,7 @@
       <description> ODAR Status Info </description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (micros since boot or Unix epoch)</field>
       <field type="float" name="gain_scale"> </field>
+      <field type="float" name="mass"> </field>
 
       <field type="char" name="fuse_flag"> </field>
       <field type="char" name="feedback_flag"> </field>
