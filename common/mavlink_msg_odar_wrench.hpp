@@ -9,7 +9,7 @@ namespace msg {
 /**
  * @brief ODAR_WRENCH message
  *
- *  ODAR Wrench
+ *  ODAR Wrench 
  */
 struct ODAR_WRENCH : mavlink::Message {
     static constexpr msgid_t MSG_ID = 228;

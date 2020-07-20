@@ -9,7 +9,7 @@ namespace msg {
 /**
  * @brief SET_GPS_GLOBAL_ORIGIN message
  *
- * As local waypoints exist, the global MISSION reference allows to transform between the local coordinate frame and the global (GPS) coordinate frame. This can be necessary when e.g. in- and outdoor settings are connected and the MAV should move from in- to outdoor.
+ * As local waypoints exist, the global waypoint reference allows to transform between the local coordinate frame and the global (GPS) coordinate frame. This can be necessary when e.g. in- and outdoor settings are connected and the MAV should move from in- to outdoor.
  */
 struct SET_GPS_GLOBAL_ORIGIN : mavlink::Message {
     static constexpr msgid_t MSG_ID = 48;

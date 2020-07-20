@@ -12,23 +12,15 @@ namespace msg {
  * Estimator status message including flags, innovation test ratios and estimated accuracies. The flags message is an integer bitmask containing information on which EKF outputs are valid. See the ESTIMATOR_STATUS_FLAGS enum definition for further information. The innovaton test ratios show the magnitude of the sensor innovation divided by the innovation check threshold. Under normal operation the innovaton test ratios should be below 0.5 with occasional values up to 1.0. Values greater than 1.0 should be rare under normal operation and indicate that a measurement has been rejected by the filter. The user should be notified if an innovation test ratio greater than 1.0 is recorded. Notifications for values in the range between 0.5 and 1.0 should be optional and controllable by the user.
  */
 struct ESTIMATOR_STATUS : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 230;
-    static constexpr size_t LENGTH = 42;
-    static constexpr size_t MIN_LENGTH = 42;
-    static constexpr uint8_t CRC_EXTRA = 163;
+    static constexpr msgid_t MSG_ID = 239;
+    static constexpr size_t LENGTH = 48;
+    static constexpr size_t MIN_LENGTH = 48;
+    static constexpr uint8_t CRC_EXTRA = 222;
     static constexpr auto NAME = "ESTIMATOR_STATUS";
 
 
     uint64_t time_usec; /*< Timestamp (micros since boot or Unix epoch) */
-    uint16_t flags; /*< Integer bitmask indicating which EKF outputs are valid. See definition for ESTIMATOR_STATUS_FLAGS. */
-    float vel_ratio; /*< Velocity innovation test ratio */
-    float pos_horiz_ratio; /*< Horizontal position innovation test ratio */
-    float pos_vert_ratio; /*< Vertical position innovation test ratio */
-    float mag_ratio; /*< Magnetometer innovation test ratio */
-    float hagl_ratio; /*< Height above terrain innovation test ratio */
-    float tas_ratio; /*< True airspeed innovation test ratio */
-    float pos_horiz_accuracy; /*< Horizontal position 1-STD accuracy relative to the EKF local origin (m) */
-    float pos_vert_accuracy; /*< Vertical position 1-STD accuracy relative to the EKF local origin (m) */
+    std::array<float, 10> state; /*< Estimator state */
 
 
     inline std::string get_name(void) const override
@@ -47,15 +39,7 @@ struct ESTIMATOR_STATUS : mavlink::Message {
 
         ss << NAME << ":" << std::endl;
         ss << "  time_usec: " << time_usec << std::endl;
-        ss << "  flags: " << flags << std::endl;
-        ss << "  vel_ratio: " << vel_ratio << std::endl;
-        ss << "  pos_horiz_ratio: " << pos_horiz_ratio << std::endl;
-        ss << "  pos_vert_ratio: " << pos_vert_ratio << std::endl;
-        ss << "  mag_ratio: " << mag_ratio << std::endl;
-        ss << "  hagl_ratio: " << hagl_ratio << std::endl;
-        ss << "  tas_ratio: " << tas_ratio << std::endl;
-        ss << "  pos_horiz_accuracy: " << pos_horiz_accuracy << std::endl;
-        ss << "  pos_vert_accuracy: " << pos_vert_accuracy << std::endl;
+        ss << "  state: [" << to_string(state) << "]" << std::endl;
 
         return ss.str();
     }
@@ -65,29 +49,13 @@ struct ESTIMATOR_STATUS : mavlink::Message {
         map.reset(MSG_ID, LENGTH);
 
         map << time_usec;                     // offset: 0
-        map << vel_ratio;                     // offset: 8
-        map << pos_horiz_ratio;               // offset: 12
-        map << pos_vert_ratio;                // offset: 16
-        map << mag_ratio;                     // offset: 20
-        map << hagl_ratio;                    // offset: 24
-        map << tas_ratio;                     // offset: 28
-        map << pos_horiz_accuracy;            // offset: 32
-        map << pos_vert_accuracy;             // offset: 36
-        map << flags;                         // offset: 40
+        map << state;                         // offset: 8
     }
 
     inline void deserialize(mavlink::MsgMap &map) override
     {
         map >> time_usec;                     // offset: 0
-        map >> vel_ratio;                     // offset: 8
-        map >> pos_horiz_ratio;               // offset: 12
-        map >> pos_vert_ratio;                // offset: 16
-        map >> mag_ratio;                     // offset: 20
-        map >> hagl_ratio;                    // offset: 24
-        map >> tas_ratio;                     // offset: 28
-        map >> pos_horiz_accuracy;            // offset: 32
-        map >> pos_vert_accuracy;             // offset: 36
-        map >> flags;                         // offset: 40
+        map >> state;                         // offset: 8
     }
 };
 

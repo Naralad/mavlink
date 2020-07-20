@@ -9,7 +9,7 @@ namespace msg {
 /**
  * @brief MISSION_ACK message
  *
- * Ack message during MISSION handling. The type field states if this message is a positive ack (type=0) or if an error happened (type=non-zero).
+ * Ack message during waypoint handling. The type field states if this message is a positive ack (type=0) or if an error happened (type=non-zero).
  */
 struct MISSION_ACK : mavlink::Message {
     static constexpr msgid_t MSG_ID = 47;

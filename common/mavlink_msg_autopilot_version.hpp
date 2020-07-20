@@ -13,7 +13,7 @@ namespace msg {
  */
 struct AUTOPILOT_VERSION : mavlink::Message {
     static constexpr msgid_t MSG_ID = 148;
-    static constexpr size_t LENGTH = 60;
+    static constexpr size_t LENGTH = 78;
     static constexpr size_t MIN_LENGTH = 60;
     static constexpr uint8_t CRC_EXTRA = 178;
     static constexpr auto NAME = "AUTOPILOT_VERSION";
@@ -29,7 +29,8 @@ struct AUTOPILOT_VERSION : mavlink::Message {
     std::array<uint8_t, 8> os_custom_version; /*< Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases. */
     uint16_t vendor_id; /*< ID of the board vendor */
     uint16_t product_id; /*< ID of the product */
-    uint64_t uid; /*< UID if provided by hardware */
+    uint64_t uid; /*< UID if provided by hardware (see uid2) */
+    std::array<uint8_t, 18> uid2; /*< UID if provided by hardware (supersedes the uid field. If this is non-zero, use this field, otherwise use uid) */
 
 
     inline std::string get_name(void) const override
@@ -58,6 +59,7 @@ struct AUTOPILOT_VERSION : mavlink::Message {
         ss << "  vendor_id: " << vendor_id << std::endl;
         ss << "  product_id: " << product_id << std::endl;
         ss << "  uid: " << uid << std::endl;
+        ss << "  uid2: [" << to_string(uid2) << "]" << std::endl;
 
         return ss.str();
     }
@@ -77,6 +79,7 @@ struct AUTOPILOT_VERSION : mavlink::Message {
         map << flight_custom_version;         // offset: 36
         map << middleware_custom_version;     // offset: 44
         map << os_custom_version;             // offset: 52
+        map << uid2;                          // offset: 60
     }
 
     inline void deserialize(mavlink::MsgMap &map) override
@@ -92,6 +95,7 @@ struct AUTOPILOT_VERSION : mavlink::Message {
         map >> flight_custom_version;         // offset: 36
         map >> middleware_custom_version;     // offset: 44
         map >> os_custom_version;             // offset: 52
+        map >> uid2;                          // offset: 60
     }
 };
 

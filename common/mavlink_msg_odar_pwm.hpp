@@ -9,7 +9,7 @@ namespace msg {
 /**
  * @brief ODAR_PWM message
  *
- *  ODAR PWM
+ *  ODAR PWM 
  */
 struct ODAR_PWM : mavlink::Message {
     static constexpr msgid_t MSG_ID = 227;

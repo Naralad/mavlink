@@ -9870,6 +9870,7 @@ TEST(common, AUTOPILOT_VERSION)
     packet_in.vendor_id = 18899;
     packet_in.product_id = 19003;
     packet_in.uid = 93372036854776311ULL;
+    packet_in.uid2 = {{ 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202 }};
 
     mavlink::common::msg::AUTOPILOT_VERSION packet1{};
     mavlink::common::msg::AUTOPILOT_VERSION packet2{};
@@ -9895,6 +9896,7 @@ TEST(common, AUTOPILOT_VERSION)
     EXPECT_EQ(packet1.vendor_id, packet2.vendor_id);
     EXPECT_EQ(packet1.product_id, packet2.product_id);
     EXPECT_EQ(packet1.uid, packet2.uid);
+    EXPECT_EQ(packet1.uid2, packet2.uid2);
 }
 
 #ifdef TEST_INTEROP
@@ -9906,7 +9908,7 @@ TEST(common_interop, AUTOPILOT_VERSION)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_autopilot_version_t packet_c {
-         93372036854775807ULL, 93372036854776311ULL, 963498296, 963498504, 963498712, 963498920, 18899, 19003, { 113, 114, 115, 116, 117, 118, 119, 120 }, { 137, 138, 139, 140, 141, 142, 143, 144 }, { 161, 162, 163, 164, 165, 166, 167, 168 }
+         93372036854775807ULL, 93372036854776311ULL, 963498296, 963498504, 963498712, 963498920, 18899, 19003, { 113, 114, 115, 116, 117, 118, 119, 120 }, { 137, 138, 139, 140, 141, 142, 143, 144 }, { 161, 162, 163, 164, 165, 166, 167, 168 }, { 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202 }
     };
 
     mavlink::common::msg::AUTOPILOT_VERSION packet_in{};
@@ -9921,6 +9923,7 @@ TEST(common_interop, AUTOPILOT_VERSION)
     packet_in.vendor_id = 18899;
     packet_in.product_id = 19003;
     packet_in.uid = 93372036854776311ULL;
+    packet_in.uid2 = {{ 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202 }};
 
     mavlink::common::msg::AUTOPILOT_VERSION packet2{};
 
@@ -9944,6 +9947,7 @@ TEST(common_interop, AUTOPILOT_VERSION)
     EXPECT_EQ(packet_in.vendor_id, packet2.vendor_id);
     EXPECT_EQ(packet_in.product_id, packet2.product_id);
     EXPECT_EQ(packet_in.uid, packet2.uid);
+    EXPECT_EQ(packet_in.uid2, packet2.uid2);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);
@@ -10071,8 +10075,8 @@ TEST(common, ODAR_INFO)
     mavlink::common::msg::ODAR_INFO packet_in{};
     packet_in.time_usec = 93372036854775807ULL;
     packet_in.gain_scale = 73.0;
-    packet_in.fuse_flag = 'K';
-    packet_in.feedback_flag = 'L';
+    packet_in.fuse_flag = 113;
+    packet_in.feedback_flag = 180;
     packet_in.k_p = 101.0;
     packet_in.k_d = 129.0;
     packet_in.k_i = 157.0;
@@ -10114,14 +10118,14 @@ TEST(common_interop, ODAR_INFO)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_odar_info_t packet_c {
-         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 213.0, 241.0, 'K', 'L'
+         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 213.0, 241.0, 113, 180
     };
 
     mavlink::common::msg::ODAR_INFO packet_in{};
     packet_in.time_usec = 93372036854775807ULL;
     packet_in.gain_scale = 73.0;
-    packet_in.fuse_flag = 'K';
-    packet_in.feedback_flag = 'L';
+    packet_in.fuse_flag = 113;
+    packet_in.feedback_flag = 180;
     packet_in.k_p = 101.0;
     packet_in.k_d = 129.0;
     packet_in.k_i = 157.0;
@@ -10426,6 +10430,275 @@ TEST(common_interop, ODAR_DESIRED_POSE)
 }
 #endif
 
+TEST(common, ODAR_SCKF)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::common::msg::ODAR_SCKF packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.qw = 73.0;
+    packet_in.qx = 101.0;
+    packet_in.qy = 129.0;
+    packet_in.qz = 157.0;
+    packet_in.vx = 185.0;
+    packet_in.vy = 213.0;
+    packet_in.vz = 241.0;
+    packet_in.x = 269.0;
+    packet_in.y = 297.0;
+    packet_in.z = 325.0;
+
+    mavlink::common::msg::ODAR_SCKF packet1{};
+    mavlink::common::msg::ODAR_SCKF packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet1.qw, packet2.qw);
+    EXPECT_EQ(packet1.qx, packet2.qx);
+    EXPECT_EQ(packet1.qy, packet2.qy);
+    EXPECT_EQ(packet1.qz, packet2.qz);
+    EXPECT_EQ(packet1.vx, packet2.vx);
+    EXPECT_EQ(packet1.vy, packet2.vy);
+    EXPECT_EQ(packet1.vz, packet2.vz);
+    EXPECT_EQ(packet1.x, packet2.x);
+    EXPECT_EQ(packet1.y, packet2.y);
+    EXPECT_EQ(packet1.z, packet2.z);
+}
+
+#ifdef TEST_INTEROP
+TEST(common_interop, ODAR_SCKF)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_odar_sckf_t packet_c {
+         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 213.0, 241.0, 269.0, 297.0, 325.0
+    };
+
+    mavlink::common::msg::ODAR_SCKF packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.qw = 73.0;
+    packet_in.qx = 101.0;
+    packet_in.qy = 129.0;
+    packet_in.qz = 157.0;
+    packet_in.vx = 185.0;
+    packet_in.vy = 213.0;
+    packet_in.vz = 241.0;
+    packet_in.x = 269.0;
+    packet_in.y = 297.0;
+    packet_in.z = 325.0;
+
+    mavlink::common::msg::ODAR_SCKF packet2{};
+
+    mavlink_msg_odar_sckf_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet_in.qw, packet2.qw);
+    EXPECT_EQ(packet_in.qx, packet2.qx);
+    EXPECT_EQ(packet_in.qy, packet2.qy);
+    EXPECT_EQ(packet_in.qz, packet2.qz);
+    EXPECT_EQ(packet_in.vx, packet2.vx);
+    EXPECT_EQ(packet_in.vy, packet2.vy);
+    EXPECT_EQ(packet_in.vz, packet2.vz);
+    EXPECT_EQ(packet_in.x, packet2.x);
+    EXPECT_EQ(packet_in.y, packet2.y);
+    EXPECT_EQ(packet_in.z, packet2.z);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
+TEST(common, ODAR_FUSED_POSE)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::common::msg::ODAR_FUSED_POSE packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.x = 73.0;
+    packet_in.y = 101.0;
+    packet_in.z = 129.0;
+    packet_in.qw = 157.0;
+    packet_in.qx = 185.0;
+    packet_in.qy = 213.0;
+    packet_in.qz = 241.0;
+
+    mavlink::common::msg::ODAR_FUSED_POSE packet1{};
+    mavlink::common::msg::ODAR_FUSED_POSE packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet1.x, packet2.x);
+    EXPECT_EQ(packet1.y, packet2.y);
+    EXPECT_EQ(packet1.z, packet2.z);
+    EXPECT_EQ(packet1.qw, packet2.qw);
+    EXPECT_EQ(packet1.qx, packet2.qx);
+    EXPECT_EQ(packet1.qy, packet2.qy);
+    EXPECT_EQ(packet1.qz, packet2.qz);
+}
+
+#ifdef TEST_INTEROP
+TEST(common_interop, ODAR_FUSED_POSE)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_odar_fused_pose_t packet_c {
+         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 213.0, 241.0
+    };
+
+    mavlink::common::msg::ODAR_FUSED_POSE packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.x = 73.0;
+    packet_in.y = 101.0;
+    packet_in.z = 129.0;
+    packet_in.qw = 157.0;
+    packet_in.qx = 185.0;
+    packet_in.qy = 213.0;
+    packet_in.qz = 241.0;
+
+    mavlink::common::msg::ODAR_FUSED_POSE packet2{};
+
+    mavlink_msg_odar_fused_pose_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet_in.x, packet2.x);
+    EXPECT_EQ(packet_in.y, packet2.y);
+    EXPECT_EQ(packet_in.z, packet2.z);
+    EXPECT_EQ(packet_in.qw, packet2.qw);
+    EXPECT_EQ(packet_in.qx, packet2.qx);
+    EXPECT_EQ(packet_in.qy, packet2.qy);
+    EXPECT_EQ(packet_in.qz, packet2.qz);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
+TEST(common, ODAR_FUSED_VEL)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::common::msg::ODAR_FUSED_VEL packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.vx = 73.0;
+    packet_in.vy = 101.0;
+    packet_in.vz = 129.0;
+    packet_in.wx = 157.0;
+    packet_in.wy = 185.0;
+    packet_in.wz = 213.0;
+
+    mavlink::common::msg::ODAR_FUSED_VEL packet1{};
+    mavlink::common::msg::ODAR_FUSED_VEL packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet1.vx, packet2.vx);
+    EXPECT_EQ(packet1.vy, packet2.vy);
+    EXPECT_EQ(packet1.vz, packet2.vz);
+    EXPECT_EQ(packet1.wx, packet2.wx);
+    EXPECT_EQ(packet1.wy, packet2.wy);
+    EXPECT_EQ(packet1.wz, packet2.wz);
+}
+
+#ifdef TEST_INTEROP
+TEST(common_interop, ODAR_FUSED_VEL)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_odar_fused_vel_t packet_c {
+         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 213.0
+    };
+
+    mavlink::common::msg::ODAR_FUSED_VEL packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.vx = 73.0;
+    packet_in.vy = 101.0;
+    packet_in.vz = 129.0;
+    packet_in.wx = 157.0;
+    packet_in.wy = 185.0;
+    packet_in.wz = 213.0;
+
+    mavlink::common::msg::ODAR_FUSED_VEL packet2{};
+
+    mavlink_msg_odar_fused_vel_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet_in.vx, packet2.vx);
+    EXPECT_EQ(packet_in.vy, packet2.vy);
+    EXPECT_EQ(packet_in.vz, packet2.vz);
+    EXPECT_EQ(packet_in.wx, packet2.wx);
+    EXPECT_EQ(packet_in.wy, packet2.wy);
+    EXPECT_EQ(packet_in.wz, packet2.wz);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
 TEST(common, ODAR_PWM)
 {
     mavlink::mavlink_message_t msg;
@@ -10667,15 +10940,7 @@ TEST(common, ESTIMATOR_STATUS)
 
     mavlink::common::msg::ESTIMATOR_STATUS packet_in{};
     packet_in.time_usec = 93372036854775807ULL;
-    packet_in.flags = 19315;
-    packet_in.vel_ratio = 73.0;
-    packet_in.pos_horiz_ratio = 101.0;
-    packet_in.pos_vert_ratio = 129.0;
-    packet_in.mag_ratio = 157.0;
-    packet_in.hagl_ratio = 185.0;
-    packet_in.tas_ratio = 213.0;
-    packet_in.pos_horiz_accuracy = 241.0;
-    packet_in.pos_vert_accuracy = 269.0;
+    packet_in.state = {{ 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0 }};
 
     mavlink::common::msg::ESTIMATOR_STATUS packet1{};
     mavlink::common::msg::ESTIMATOR_STATUS packet2{};
@@ -10691,15 +10956,7 @@ TEST(common, ESTIMATOR_STATUS)
     packet2.deserialize(map2);
 
     EXPECT_EQ(packet1.time_usec, packet2.time_usec);
-    EXPECT_EQ(packet1.flags, packet2.flags);
-    EXPECT_EQ(packet1.vel_ratio, packet2.vel_ratio);
-    EXPECT_EQ(packet1.pos_horiz_ratio, packet2.pos_horiz_ratio);
-    EXPECT_EQ(packet1.pos_vert_ratio, packet2.pos_vert_ratio);
-    EXPECT_EQ(packet1.mag_ratio, packet2.mag_ratio);
-    EXPECT_EQ(packet1.hagl_ratio, packet2.hagl_ratio);
-    EXPECT_EQ(packet1.tas_ratio, packet2.tas_ratio);
-    EXPECT_EQ(packet1.pos_horiz_accuracy, packet2.pos_horiz_accuracy);
-    EXPECT_EQ(packet1.pos_vert_accuracy, packet2.pos_vert_accuracy);
+    EXPECT_EQ(packet1.state, packet2.state);
 }
 
 #ifdef TEST_INTEROP
@@ -10711,20 +10968,12 @@ TEST(common_interop, ESTIMATOR_STATUS)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_estimator_status_t packet_c {
-         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 213.0, 241.0, 269.0, 19315
+         93372036854775807ULL, { 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0 }
     };
 
     mavlink::common::msg::ESTIMATOR_STATUS packet_in{};
     packet_in.time_usec = 93372036854775807ULL;
-    packet_in.flags = 19315;
-    packet_in.vel_ratio = 73.0;
-    packet_in.pos_horiz_ratio = 101.0;
-    packet_in.pos_vert_ratio = 129.0;
-    packet_in.mag_ratio = 157.0;
-    packet_in.hagl_ratio = 185.0;
-    packet_in.tas_ratio = 213.0;
-    packet_in.pos_horiz_accuracy = 241.0;
-    packet_in.pos_vert_accuracy = 269.0;
+    packet_in.state = {{ 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0 }};
 
     mavlink::common::msg::ESTIMATOR_STATUS packet2{};
 
@@ -10738,15 +10987,70 @@ TEST(common_interop, ESTIMATOR_STATUS)
     } (&msg);
 
     EXPECT_EQ(packet_in.time_usec, packet2.time_usec);
-    EXPECT_EQ(packet_in.flags, packet2.flags);
-    EXPECT_EQ(packet_in.vel_ratio, packet2.vel_ratio);
-    EXPECT_EQ(packet_in.pos_horiz_ratio, packet2.pos_horiz_ratio);
-    EXPECT_EQ(packet_in.pos_vert_ratio, packet2.pos_vert_ratio);
-    EXPECT_EQ(packet_in.mag_ratio, packet2.mag_ratio);
-    EXPECT_EQ(packet_in.hagl_ratio, packet2.hagl_ratio);
-    EXPECT_EQ(packet_in.tas_ratio, packet2.tas_ratio);
-    EXPECT_EQ(packet_in.pos_horiz_accuracy, packet2.pos_horiz_accuracy);
-    EXPECT_EQ(packet_in.pos_vert_accuracy, packet2.pos_vert_accuracy);
+    EXPECT_EQ(packet_in.state, packet2.state);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
+TEST(common, ESTIMATOR_COVARIANCE)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::common::msg::ESTIMATOR_COVARIANCE packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.cov = {{ 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0, 90.0, 91.0, 92.0, 93.0, 94.0, 95.0, 96.0, 97.0, 98.0, 99.0, 100.0, 101.0, 102.0, 103.0, 104.0, 105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0 }};
+
+    mavlink::common::msg::ESTIMATOR_COVARIANCE packet1{};
+    mavlink::common::msg::ESTIMATOR_COVARIANCE packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet1.cov, packet2.cov);
+}
+
+#ifdef TEST_INTEROP
+TEST(common_interop, ESTIMATOR_COVARIANCE)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_estimator_covariance_t packet_c {
+         93372036854775807ULL, { 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0, 90.0, 91.0, 92.0, 93.0, 94.0, 95.0, 96.0, 97.0, 98.0, 99.0, 100.0, 101.0, 102.0, 103.0, 104.0, 105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0 }
+    };
+
+    mavlink::common::msg::ESTIMATOR_COVARIANCE packet_in{};
+    packet_in.time_usec = 93372036854775807ULL;
+    packet_in.cov = {{ 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0, 90.0, 91.0, 92.0, 93.0, 94.0, 95.0, 96.0, 97.0, 98.0, 99.0, 100.0, 101.0, 102.0, 103.0, 104.0, 105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0 }};
+
+    mavlink::common::msg::ESTIMATOR_COVARIANCE packet2{};
+
+    mavlink_msg_estimator_covariance_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.time_usec, packet2.time_usec);
+    EXPECT_EQ(packet_in.cov, packet2.cov);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);

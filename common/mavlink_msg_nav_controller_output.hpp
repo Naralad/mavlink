@@ -22,8 +22,8 @@ struct NAV_CONTROLLER_OUTPUT : mavlink::Message {
     float nav_roll; /*< Current desired roll in degrees */
     float nav_pitch; /*< Current desired pitch in degrees */
     int16_t nav_bearing; /*< Current desired heading in degrees */
-    int16_t target_bearing; /*< Bearing to current MISSION/target in degrees */
-    uint16_t wp_dist; /*< Distance to active MISSION in meters */
+    int16_t target_bearing; /*< Bearing to current waypoint/target in degrees */
+    uint16_t wp_dist; /*< Distance to active waypoint in meters */
     float alt_error; /*< Current altitude error in meters */
     float aspd_error; /*< Current airspeed error in meters/second */
     float xtrack_error; /*< Current crosstrack error on x-y plane in meters */

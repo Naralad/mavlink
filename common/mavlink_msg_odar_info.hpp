@@ -12,17 +12,17 @@ namespace msg {
  *  ODAR Status Info 
  */
 struct ODAR_INFO : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 198;
+    static constexpr msgid_t MSG_ID = 238;
     static constexpr size_t LENGTH = 38;
     static constexpr size_t MIN_LENGTH = 38;
-    static constexpr uint8_t CRC_EXTRA = 23;
+    static constexpr uint8_t CRC_EXTRA = 60;
     static constexpr auto NAME = "ODAR_INFO";
 
 
     uint64_t time_usec; /*< Timestamp (micros since boot or Unix epoch) */
     float gain_scale; /*<   */
-    char fuse_flag; /*<   */
-    char feedback_flag; /*<   */
+    uint8_t fuse_flag; /*<   */
+    uint8_t feedback_flag; /*<   */
     float k_p; /*<   */
     float k_d; /*<   */
     float k_i; /*<   */

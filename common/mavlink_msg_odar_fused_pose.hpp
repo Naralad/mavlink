@@ -1,4 +1,4 @@
-// MESSAGE ODAR_DESIRED_POSE support class
+// MESSAGE ODAR_FUSED_POSE support class
 
 #pragma once
 
@@ -7,16 +7,16 @@ namespace common {
 namespace msg {
 
 /**
- * @brief ODAR_DESIRED_POSE message
+ * @brief ODAR_FUSED_POSE message
  *
- *  ODAR Desired Pose 
+ *  ODAR Fused Pose 
  */
-struct ODAR_DESIRED_POSE : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 225;
+struct ODAR_FUSED_POSE : mavlink::Message {
+    static constexpr msgid_t MSG_ID = 236;
     static constexpr size_t LENGTH = 36;
     static constexpr size_t MIN_LENGTH = 36;
-    static constexpr uint8_t CRC_EXTRA = 43;
-    static constexpr auto NAME = "ODAR_DESIRED_POSE";
+    static constexpr uint8_t CRC_EXTRA = 135;
+    static constexpr auto NAME = "ODAR_FUSED_POSE";
 
 
     uint64_t time_usec; /*< Timestamp (micros since boot or Unix epoch) */

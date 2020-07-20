@@ -9,7 +9,7 @@ namespace msg {
 /**
  * @brief SAFETY_SET_ALLOWED_AREA message
  *
- * Set a safety zone (volume), which is defined by two corners of a cube. This message can be used to tell the MAV which setpoints/MISSIONs to accept and which to reject. Safety areas are often enforced by national or competition regulations.
+ * Set a safety zone (volume), which is defined by two corners of a cube. This message can be used to tell the MAV which setpoints/waypoints to accept and which to reject. Safety areas are often enforced by national or competition regulations.
  */
 struct SAFETY_SET_ALLOWED_AREA : mavlink::Message {
     static constexpr msgid_t MSG_ID = 54;

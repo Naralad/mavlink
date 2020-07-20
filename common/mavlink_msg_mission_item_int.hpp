@@ -23,8 +23,8 @@ struct MISSION_ITEM_INT : mavlink::Message {
     uint8_t target_system; /*< System ID */
     uint8_t target_component; /*< Component ID */
     uint16_t seq; /*< Waypoint ID (sequence number). Starts at zero. Increases monotonically for each waypoint, no gaps in the sequence (0,1,2,3,4). */
-    uint8_t frame; /*< The coordinate system of the MISSION. see MAV_FRAME in mavlink_types.h */
-    uint16_t command; /*< The scheduled action for the MISSION. see MAV_CMD in common.xml MAVLink specs */
+    uint8_t frame; /*< The coordinate system of the waypoint. see MAV_FRAME in mavlink_types.h */
+    uint16_t command; /*< The scheduled action for the waypoint. see MAV_CMD in common.xml MAVLink specs */
     uint8_t current; /*< false:0, true:1 */
     uint8_t autocontinue; /*< autocontinue to next wp */
     float param1; /*< PARAM1, see MAV_CMD enum */

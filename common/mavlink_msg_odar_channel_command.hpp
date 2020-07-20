@@ -9,7 +9,7 @@ namespace msg {
 /**
  * @brief ODAR_CHANNEL_COMMAND message
  *
- *  ODAR Channel Command
+ *  ODAR Channel Command 
  */
 struct ODAR_CHANNEL_COMMAND : mavlink::Message {
     static constexpr msgid_t MSG_ID = 224;

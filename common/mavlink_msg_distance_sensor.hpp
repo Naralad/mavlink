@@ -25,7 +25,7 @@ struct DISTANCE_SENSOR : mavlink::Message {
     uint16_t current_distance; /*< Current distance reading */
     uint8_t type; /*< Type from MAV_DISTANCE_SENSOR enum. */
     uint8_t id; /*< Onboard ID of the sensor */
-    uint8_t orientation; /*< Direction the sensor faces from MAV_SENSOR_ORIENTATION enum. */
+    uint8_t orientation; /*< Direction the sensor faces from MAV_SENSOR_ORIENTATION enum. downward-facing: ROTATION_PITCH_270, upward-facing: ROTATION_PITCH_90, backward-facing: ROTATION_PITCH_180, forward-facing: ROTATION_NONE, left-facing: ROTATION_YAW_90, right-facing: ROTATION_YAW_270 */
     uint8_t covariance; /*< Measurement covariance in centimeters, 0 for unknown / invalid readings */
 
 

@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE ODAR_INFO PACKING
 
-#define MAVLINK_MSG_ID_ODAR_INFO 198
+#define MAVLINK_MSG_ID_ODAR_INFO 238
 
 MAVPACKED(
 typedef struct __mavlink_odar_info_t {
@@ -13,29 +13,29 @@ typedef struct __mavlink_odar_info_t {
  float k_r; /*<  */
  float k_w; /*<  */
  float k_ri; /*<  */
- char fuse_flag; /*<  */
- char feedback_flag; /*<  */
+ uint8_t fuse_flag; /*<  */
+ uint8_t feedback_flag; /*<  */
 }) mavlink_odar_info_t;
 
 #define MAVLINK_MSG_ID_ODAR_INFO_LEN 38
 #define MAVLINK_MSG_ID_ODAR_INFO_MIN_LEN 38
-#define MAVLINK_MSG_ID_198_LEN 38
-#define MAVLINK_MSG_ID_198_MIN_LEN 38
+#define MAVLINK_MSG_ID_238_LEN 38
+#define MAVLINK_MSG_ID_238_MIN_LEN 38
 
-#define MAVLINK_MSG_ID_ODAR_INFO_CRC 23
-#define MAVLINK_MSG_ID_198_CRC 23
+#define MAVLINK_MSG_ID_ODAR_INFO_CRC 60
+#define MAVLINK_MSG_ID_238_CRC 60
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_ODAR_INFO { \
-    198, \
+    238, \
     "ODAR_INFO", \
     10, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_odar_info_t, time_usec) }, \
          { "gain_scale", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_odar_info_t, gain_scale) }, \
-         { "fuse_flag", NULL, MAVLINK_TYPE_CHAR, 0, 36, offsetof(mavlink_odar_info_t, fuse_flag) }, \
-         { "feedback_flag", NULL, MAVLINK_TYPE_CHAR, 0, 37, offsetof(mavlink_odar_info_t, feedback_flag) }, \
+         { "fuse_flag", NULL, MAVLINK_TYPE_UINT8_T, 0, 36, offsetof(mavlink_odar_info_t, fuse_flag) }, \
+         { "feedback_flag", NULL, MAVLINK_TYPE_UINT8_T, 0, 37, offsetof(mavlink_odar_info_t, feedback_flag) }, \
          { "k_p", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_odar_info_t, k_p) }, \
          { "k_d", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_odar_info_t, k_d) }, \
          { "k_i", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_odar_info_t, k_i) }, \
@@ -50,8 +50,8 @@ typedef struct __mavlink_odar_info_t {
     10, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_odar_info_t, time_usec) }, \
          { "gain_scale", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_odar_info_t, gain_scale) }, \
-         { "fuse_flag", NULL, MAVLINK_TYPE_CHAR, 0, 36, offsetof(mavlink_odar_info_t, fuse_flag) }, \
-         { "feedback_flag", NULL, MAVLINK_TYPE_CHAR, 0, 37, offsetof(mavlink_odar_info_t, feedback_flag) }, \
+         { "fuse_flag", NULL, MAVLINK_TYPE_UINT8_T, 0, 36, offsetof(mavlink_odar_info_t, fuse_flag) }, \
+         { "feedback_flag", NULL, MAVLINK_TYPE_UINT8_T, 0, 37, offsetof(mavlink_odar_info_t, feedback_flag) }, \
          { "k_p", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_odar_info_t, k_p) }, \
          { "k_d", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_odar_info_t, k_d) }, \
          { "k_i", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_odar_info_t, k_i) }, \
@@ -81,7 +81,7 @@ typedef struct __mavlink_odar_info_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_odar_info_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, float gain_scale, char fuse_flag, char feedback_flag, float k_p, float k_d, float k_i, float k_r, float k_w, float k_ri)
+                               uint64_t time_usec, float gain_scale, uint8_t fuse_flag, uint8_t feedback_flag, float k_p, float k_d, float k_i, float k_r, float k_w, float k_ri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ODAR_INFO_LEN];
@@ -93,8 +93,8 @@ static inline uint16_t mavlink_msg_odar_info_pack(uint8_t system_id, uint8_t com
     _mav_put_float(buf, 24, k_r);
     _mav_put_float(buf, 28, k_w);
     _mav_put_float(buf, 32, k_ri);
-    _mav_put_char(buf, 36, fuse_flag);
-    _mav_put_char(buf, 37, feedback_flag);
+    _mav_put_uint8_t(buf, 36, fuse_flag);
+    _mav_put_uint8_t(buf, 37, feedback_flag);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ODAR_INFO_LEN);
 #else
@@ -137,7 +137,7 @@ static inline uint16_t mavlink_msg_odar_info_pack(uint8_t system_id, uint8_t com
  */
 static inline uint16_t mavlink_msg_odar_info_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,float gain_scale,char fuse_flag,char feedback_flag,float k_p,float k_d,float k_i,float k_r,float k_w,float k_ri)
+                                   uint64_t time_usec,float gain_scale,uint8_t fuse_flag,uint8_t feedback_flag,float k_p,float k_d,float k_i,float k_r,float k_w,float k_ri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ODAR_INFO_LEN];
@@ -149,8 +149,8 @@ static inline uint16_t mavlink_msg_odar_info_pack_chan(uint8_t system_id, uint8_
     _mav_put_float(buf, 24, k_r);
     _mav_put_float(buf, 28, k_w);
     _mav_put_float(buf, 32, k_ri);
-    _mav_put_char(buf, 36, fuse_flag);
-    _mav_put_char(buf, 37, feedback_flag);
+    _mav_put_uint8_t(buf, 36, fuse_flag);
+    _mav_put_uint8_t(buf, 37, feedback_flag);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ODAR_INFO_LEN);
 #else
@@ -217,7 +217,7 @@ static inline uint16_t mavlink_msg_odar_info_encode_chan(uint8_t system_id, uint
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_odar_info_send(mavlink_channel_t chan, uint64_t time_usec, float gain_scale, char fuse_flag, char feedback_flag, float k_p, float k_d, float k_i, float k_r, float k_w, float k_ri)
+static inline void mavlink_msg_odar_info_send(mavlink_channel_t chan, uint64_t time_usec, float gain_scale, uint8_t fuse_flag, uint8_t feedback_flag, float k_p, float k_d, float k_i, float k_r, float k_w, float k_ri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ODAR_INFO_LEN];
@@ -229,8 +229,8 @@ static inline void mavlink_msg_odar_info_send(mavlink_channel_t chan, uint64_t t
     _mav_put_float(buf, 24, k_r);
     _mav_put_float(buf, 28, k_w);
     _mav_put_float(buf, 32, k_ri);
-    _mav_put_char(buf, 36, fuse_flag);
-    _mav_put_char(buf, 37, feedback_flag);
+    _mav_put_uint8_t(buf, 36, fuse_flag);
+    _mav_put_uint8_t(buf, 37, feedback_flag);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ODAR_INFO, buf, MAVLINK_MSG_ID_ODAR_INFO_MIN_LEN, MAVLINK_MSG_ID_ODAR_INFO_LEN, MAVLINK_MSG_ID_ODAR_INFO_CRC);
 #else
@@ -272,7 +272,7 @@ static inline void mavlink_msg_odar_info_send_struct(mavlink_channel_t chan, con
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_odar_info_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, float gain_scale, char fuse_flag, char feedback_flag, float k_p, float k_d, float k_i, float k_r, float k_w, float k_ri)
+static inline void mavlink_msg_odar_info_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, float gain_scale, uint8_t fuse_flag, uint8_t feedback_flag, float k_p, float k_d, float k_i, float k_r, float k_w, float k_ri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -284,8 +284,8 @@ static inline void mavlink_msg_odar_info_send_buf(mavlink_message_t *msgbuf, mav
     _mav_put_float(buf, 24, k_r);
     _mav_put_float(buf, 28, k_w);
     _mav_put_float(buf, 32, k_ri);
-    _mav_put_char(buf, 36, fuse_flag);
-    _mav_put_char(buf, 37, feedback_flag);
+    _mav_put_uint8_t(buf, 36, fuse_flag);
+    _mav_put_uint8_t(buf, 37, feedback_flag);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ODAR_INFO, buf, MAVLINK_MSG_ID_ODAR_INFO_MIN_LEN, MAVLINK_MSG_ID_ODAR_INFO_LEN, MAVLINK_MSG_ID_ODAR_INFO_CRC);
 #else
@@ -336,9 +336,9 @@ static inline float mavlink_msg_odar_info_get_gain_scale(const mavlink_message_t
  *
  * @return  
  */
-static inline char mavlink_msg_odar_info_get_fuse_flag(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_odar_info_get_fuse_flag(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_char(msg,  36);
+    return _MAV_RETURN_uint8_t(msg,  36);
 }
 
 /**
@@ -346,9 +346,9 @@ static inline char mavlink_msg_odar_info_get_fuse_flag(const mavlink_message_t* 
  *
  * @return  
  */
-static inline char mavlink_msg_odar_info_get_feedback_flag(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_odar_info_get_feedback_flag(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_char(msg,  37);
+    return _MAV_RETURN_uint8_t(msg,  37);
 }
 
 /**
